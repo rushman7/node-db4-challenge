@@ -7,19 +7,23 @@ exports.up = function(knex) {
     })
     .createTable('ingredients', tbl => {
       tbl.increments();
-      tbl.string('instructions', 255).notNullable();
+      tbl.string('ingredient', 255).notNullable();
       tbl.float('amount').unsigned().notNullable();
       tbl.integer('recipe_id')
         .unsigned()
         .notNullable()
         .references('id')
         .inTable('recipes')
-        .onUpdate('CASCADE')
-        .onDelete('CASCADE');
     })
     .createTable('instructions', tbl => {
       tbl.increments();
-      tbl.string('instruction_name', 255).notNullable();
+      tbl.integer('step_number').unsigned().notNullable();
+      tbl.string('instruction', 255).notNullable();
+      tbl.integer('recipe_id')
+        .unsigned()
+        .notNullable()
+        .references('id')
+        .inTable('recipes')
     })
 };
 

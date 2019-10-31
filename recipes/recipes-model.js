@@ -7,15 +7,15 @@ function getRecipes() {
 }
 
 function getShoppingList(id) {
-  return db('recipes')
+  return db('recipes as r')
     .where({ id })
-    .select('recipes.id', 'recipes.recipe_name', 'ingredients.amount', 'ingredients.ingredient')    
-    .join('ingredients', 'recipes.id','=', 'ingredients.recipes.id')
+    .join('ingredients as i', 'r.id','=', 'i.recipe.id')
+    .select('r.id', 'r.recipe_name', 'i.amount', 'i.ingredient')    
 }
 
 function getInstructions(id) {
-  return db('recipes')
+  return db('recipes as r')
+    .join('instructions as i', 'r.id', 'i.recipe.id')  
+    .select('r.id', 'r.recipe_name', 'i.step_number', 'i.instruction')  
     .where({ id })
-    .select('recipes.id', 'recipes.recipe_name', 'instructions.step_number', 'instructions.instruction')    
-    .join('instructions', 'recipes.id','=', 'instructions.recipes.id')
 }

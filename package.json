@@ -1,0 +1,19 @@
+{
+  "name": "node-db4-challenge",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "knex": "^0.20.1",
+    "sqlite3": "^4.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.4"
+  },
+  "repository": "https://github.com/rushman7/node-db4-challenge.git",
+  "author": "BuildTools <arthurpisakhov1@gmail.com>",
+  "license": "MIT"
+}

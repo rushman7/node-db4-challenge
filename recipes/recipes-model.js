@@ -4,18 +4,19 @@ module.exports = { getRecipes, getShoppingList, getInstructions }
 
 function getRecipes() {
   return db('recipes')
-}
+};
 
 function getShoppingList(id) {
   return db('recipes as r')
-    .where({ id })
-    .join('ingredients as i', 'r.id','=', 'i.recipe.id')
-    .select('r.id', 'r.recipe_name', 'i.amount', 'i.ingredient')    
-}
+    .join('recipe_ingredients as ri', 'r.id', 'ri.recipe_id')  
+    .join('ingredients as i', 'ri.ingredient_id', 'i.id')  
+    .select('i.name', 'ri.quantity')  
+};
 
 function getInstructions(id) {
   return db('recipes as r')
-    .join('instructions as i', 'r.id', 'i.recipe.id')  
-    .select('r.id', 'r.recipe_name', 'i.step_number', 'i.instruction')  
-    .where({ id })
-}
+    .join('steps as s', 'r.id', 's.recipe_id')  
+    .select('s.step_number', 's.instructions')  
+    .where({ "r.id": id })
+    .orderBy('s.step_number')
+};
